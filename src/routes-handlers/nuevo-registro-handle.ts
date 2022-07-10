@@ -7,7 +7,7 @@ export const workflowRegistrarDatosDeSensor = async (
   res: Response,
   next: NextFunction
 ) => {
-  const bodyReq: SensorPayload = req.body;
+  const bodyReq: NewSensorPayload = req.body;
   const keysBodyReq = Object.keys(bodyReq);
 
   for (let key of keysBodyReq) {

@@ -13,7 +13,7 @@ const insert_registros_sensores = gql`
 
 export const registrarValorSensadoPorPunto = async (
   pointData: any,
-  bodyReq: SensorPayload
+  bodyReq: NewSensorPayload
 ) => {
   const { tags, clave_esperada, id } = pointData;
   tags["value"] = bodyReq[clave_esperada];

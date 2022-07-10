@@ -16,11 +16,14 @@ const point = gql`
   }
 `;
 
-export const getEtiquetasDeEntidades = async (body: SensorPayload, clave_esperada:string) => {
+export const getEtiquetasDeEntidades = async (
+  body: NewSensorPayload,
+  clave_esperada: string
+) => {
   const { id } = body;
   const variables = {
     id,
-    clave_esperada
+    clave_esperada,
   };
 
   const { data, error } = await client.query({
@@ -33,7 +36,6 @@ export const getEtiquetasDeEntidades = async (body: SensorPayload, clave_esperad
       status: 400,
       msg: error,
     };
-  
 
   const entidadPoint = data?.point?.[0] ?? null;
   if (entidadPoint) return { status: 200, body: entidadPoint };

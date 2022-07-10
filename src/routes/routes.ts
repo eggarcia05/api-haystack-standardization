@@ -1,5 +1,6 @@
 import cors from "cors";
 import { Request, Response, Router } from "express";
+import { obtenerDatosDeSensor } from "../controllers/obtener-datos-sensor";
 import { workflowRegistrarDatosDeSensor } from "../routes-handlers/nuevo-registro-handle";
 const router = Router();
 
@@ -13,5 +14,6 @@ router.get("/", async (request: Request, response: Response) => {
 });
 
 router.post("/registrar-datos", workflowRegistrarDatosDeSensor);
+router.post("/obtener-datos", obtenerDatosDeSensor);
 
 export default router;
