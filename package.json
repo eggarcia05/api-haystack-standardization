@@ -24,7 +24,8 @@
     "node-fetch": "^2.6.1",
     "socket.io": "^4.5.1",
     "subscriptions-transport-ws": "^0.11.0",
-    "ts-node": "^10.2.1"
+    "ts-node": "^10.2.1",
+    "ws": "^8.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -32,6 +33,7 @@
     "@babel/preset-typescript": "^7.16.5",
     "@types/cors": "^2.8.12",
     "@types/jest": "^27.0.3",
+    "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "babel-jest": "^27.4.5",

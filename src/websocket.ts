@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import * as http from "http";
 import * as socketio from "socket.io";
+import { getRealtimeSensorData } from "./controllers/suscripcion";
 
 const app = express();
 
@@ -31,13 +32,19 @@ const server = http.createServer(app);
 const io = new socketio.Server(server);
 
 io.on("connection", async (socket) => {
-  console.log("Un cliente se ha conectado");
-  for (let message of messages) {
-    socket.emit("messages", message);
-    await timeout(6000);
-  }
+//   socket.on("", async () => {
+//     const data = await getRealtimeSensorData();
+//     socket.emit("suscriptionResult", data);
+//     await timeout(6000);
+//   });
+    
+    console.log("Un cliente se ha conectado: ",);
+    const periodTime: number = <any>socket.handshake.query?.periodTime ?? 5000;
+    while (true) {
+        const data = await getRealtimeSensorData();
+        socket.emit("suscriptionResult", data);
+        await timeout(periodTime);
+    }
 });
-
-
 
 export default server;
