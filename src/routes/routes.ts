@@ -5,12 +5,12 @@ import { workflowRegistrarDatosDeSensor } from "../routes-handlers/nuevo-registr
 const router = Router();
 
 router.use(cors());
-
+// app.get("/", (_req, res) => {
+//   res.send({ uptime: process.uptime() });
+// });
 router.get("/", async (request: Request, response: Response) => {
-  response.send({
-    Project: "Standardize IoT Data API - ESPOL",
-    Versions: "v 1.0.0",
-  });
+   response.send({ uptime: process.uptime() });
+
 });
 
 router.post("/registrar-datos", workflowRegistrarDatosDeSensor);

@@ -4,18 +4,30 @@ interface NewSensorPayload {
 }
 
 interface QuerySensorData {
-    pointId: string
-    filters: Filter[]
-    ordenarPor: OrderCondition
+  pointsIds: string[];
+  equipsIds: string[];
+  sitesIds: string[];
+  intervaloTimestamp?: PeriodoTiempo;
+  filtroPorEtiquetas?: FiltroEtiquetas;
+  ordenarPor?: OrderCondition;
 }
 
-interface Filter {
-    parametroAFiltrar: string
-    condicicioDeFiltro: string
-    valorAComparar: string|number|boolean
+interface PeriodoTiempo {
+  timestampInicial: string;
+  timestampFinal: string;
+}
+
+interface CamposEtiqueta {
+  nombreEtiqueta: string;
+  condicicioDeFiltro?: string;
+  valorAComparar?: string | number | boolean;
+}
+interface FiltroEtiquetas {
+  etiquetas: CamposEtiqueta[];
+  cumpleTodos: boolean;
 }
 
 interface OrderCondition {
-    orden: string
-    parametroParaOrdenar: string
+  orden: string;
+  parametroParaOrdenar: string;
 }
