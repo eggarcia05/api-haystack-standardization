@@ -23,7 +23,7 @@ const condiciones = {
 export const traducirQuery = (queryParams: QuerySensorData) => {
   const { pointsIds, intervaloTimestamp, filtroPorEtiquetas } = queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
-  const { cumpleTodos, etiquetas } = filtroPorEtiquetas ?? {};
+  const {  incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
   console.log(JSON.stringify(pointsIds));
 
   const where = {
@@ -39,7 +39,7 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         : {},
       timestampFinal ? { timestamp_registro: { _lte: timestampFinal } } : {},
     ],
-    registro: cumpleTodos
+    registro: incluirTodos
       ? { _has_keys_all: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta) }
       : {
           _has_keys_any: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta),

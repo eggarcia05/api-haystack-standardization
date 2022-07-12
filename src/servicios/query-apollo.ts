@@ -15,7 +15,7 @@ export const fetchQuery = async (query: string, variables: any) => {
         body: error,
       };
 
-    return { body: data };
+    return { status:200, body: data };
   } catch (error) {
       return {
         status: 400,

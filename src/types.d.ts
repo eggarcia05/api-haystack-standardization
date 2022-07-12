@@ -24,7 +24,7 @@ interface CamposEtiqueta {
 }
 interface FiltroEtiquetas {
   etiquetas: CamposEtiqueta[];
-  cumpleTodos: boolean;
+  incluirTodos: boolean;
 }
 
 interface OrderCondition {

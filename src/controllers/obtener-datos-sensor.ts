@@ -15,10 +15,6 @@ export const obtenerDatosDeSensor = async (
     where: filtroGraph,
   };
 
-  const result = await fetchQuery(query, variables);
-
-  console.log(JSON.stringify(variables));
-  
-
-  res.send({ status: 200, result });
+  const { status, body } = await fetchQuery(query, variables);
+  res.status(status).send({ msg: body });
 };
