@@ -24,3 +24,13 @@ export const GET_REGISTRO_SENSORES = gql`
     }
   }
 `;
+
+export const DATA_REALTIME = gql`
+  query realTimeData {
+    registros_sensores(limit: 10, order_by: { timestamp_registro: desc }) {
+      id
+      timestamp_registro
+      registro
+    }
+  }
+`;

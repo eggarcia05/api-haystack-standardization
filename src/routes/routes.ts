@@ -1,19 +1,18 @@
 import cors from "cors";
 import { Request, Response, Router } from "express";
 import { obtenerDatosDeSensor } from "../controllers/obtener-datos-sensor";
-import { workflowRegistrarDatosDeSensor } from "../routes-handlers/nuevo-registro-handle";
+import { registrarDatosDeSensor } from "../controllers/nuevo-registro-sensor";
 const router = Router();
 
 router.use(cors());
-// app.get("/", (_req, res) => {
-//   res.send({ uptime: process.uptime() });
-// });
-router.get("/", async (request: Request, response: Response) => {
-   response.send({ uptime: process.uptime() });
 
+router.get("/", async (request: Request, response: Response) => {
+  response.status(200).send({
+    descripción: "API - Esstandarización de Sistemas IoT",
+  });
 });
 
-router.post("/registrar-datos", workflowRegistrarDatosDeSensor);
+router.post("/registrar-datos", registrarDatosDeSensor);
 router.post("/obtener-datos", obtenerDatosDeSensor);
 
 export default router;

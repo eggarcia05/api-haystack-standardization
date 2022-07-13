@@ -23,22 +23,10 @@ io.on("connection", async (socket) => {
   const periodTime: number = <any>socket.handshake.query?.periodTime ?? 5000;
   const limit: number = Number(<any>socket.handshake.query?.limit ?? 5);
   const pointId: string = <any>socket.handshake.query?.pointId ?? undefined;
-  console.log(<any>socket.handshake.query);
 
   while (true) {
-    const query = "GET_REGISTRO_SENSORES";
-    const variables = {
-      where: pointId
-        ? {
-            point_id: { _eq: pointId },
-          }
-        : {},
-      limit,
-    };
-
-    const { body } = await fetchQuery(query, variables);
-    const data = body?.registros_sensores ?? [];
-    socket.emit("suscriptionResult", data);
+    const data = await getRealtimeSensorData(pointId, limit)
+    socket.emit("realtime_data", data);
     await timeout(Number(periodTime));
   }
 });
