@@ -2,6 +2,7 @@ import cors from "cors";
 import { Request, Response, Router } from "express";
 import { obtenerDatosDeSensor } from "../controllers/obtener-datos-sensor";
 import { registrarDatosDeSensor } from "../controllers/nuevo-registro-sensor";
+import { validarBodyRequest } from "../middlewares/validador-esquema";
 const router = Router();
 
 router.use(cors());
@@ -12,7 +13,7 @@ router.get("/", async (request: Request, response: Response) => {
   });
 });
 
-router.post("/registrar-datos", registrarDatosDeSensor);
-router.post("/obtener-datos", obtenerDatosDeSensor);
+router.post("/registrar-datos",validarBodyRequest, registrarDatosDeSensor);
+router.post("/obtener-datos", validarBodyRequest, obtenerDatosDeSensor);
 
 export default router;

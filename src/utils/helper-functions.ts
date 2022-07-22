@@ -1,3 +1,5 @@
+import Ajv from "ajv";
+
 const mayorIgual = (valor: number) => {};
 
 const menorIgual = (valor: number) => {};
@@ -23,8 +25,8 @@ const condiciones = {
 export const traducirQuery = (queryParams: QuerySensorData) => {
   const { pointsIds, intervaloTimestamp, filtroPorEtiquetas } = queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
-  const {  incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
-  console.log(JSON.stringify(pointsIds));
+  const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
+
 
   const where = {
     _or:
@@ -39,13 +41,35 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         : {},
       timestampFinal ? { timestamp_registro: { _lte: timestampFinal } } : {},
     ],
-    registro: incluirTodos
-      ? { _has_keys_all: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta) }
-      : {
-          _has_keys_any: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta),
-        },
+    registro: !!etiquetas && etiquetas.length > 0 
+      ? incluirTodos 
+        ? { _has_keys_all: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta) }
+        : {
+            _has_keys_any: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta),
+        }
+      : { },
   };
   console.log(JSON.stringify(where));
 
   return where;
 };
+
+const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+
+interface Result {
+  valido: boolean;
+  errorMsg: any;
+}
+
+export function validarJSON(objetoAValidar: any, schema: any): Result {
+  const validate = ajv.compile(schema);
+
+  const esValido = validate(objetoAValidar);
+
+  const result: Result = {
+    valido: esValido,
+    errorMsg: validate.errors ?? "",
+  };
+
+  return result;
+}
