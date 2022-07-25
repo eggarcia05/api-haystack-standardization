@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { fetchQuery } from "../servicios/query-apollo";
-import { traducirQuery as traducirFiltroQuery } from "../utils/helper-functions";
+import {
+  filtrarPorEtiquetaValue,
+  separarEtiquetaValue,
+  traducirQuery as traducirFiltroQuery,
+} from "../utils/helper-functions";
 
 export const obtenerDatosDeSensor = async (
   req: Request,
@@ -8,13 +12,34 @@ export const obtenerDatosDeSensor = async (
   next: NextFunction
 ) => {
   const bodyRequest: QuerySensorData = req.body;
-  const filtroGraph = traducirFiltroQuery(bodyRequest);
+
+  const valueFilter = separarEtiquetaValue(bodyRequest);
+  const where = traducirFiltroQuery(bodyRequest);
 
   const query = "GET_REGISTRO_SENSORES";
   const variables = {
-    where: filtroGraph,
+    where,
   };
 
   const { status, body } = await fetchQuery(query, variables);
-  res.status(status).send({ msg: body });
+  const { registros_sensores } = body;
+
+  let newResultadoFiltradoPorValor = [];
+
+  if (valueFilter) {
+    for (let registro of registros_sensores) {
+      if (
+        filtrarPorEtiquetaValue(
+          registro,
+          String(valueFilter.condicion),
+          valueFilter.valor
+        )
+      )
+        newResultadoFiltradoPorValor.push(registro);
+    }
+  } else {
+    newResultadoFiltradoPorValor = registros_sensores;
+  }
+
+  res.status(status).send({ result: newResultadoFiltradoPorValor });
 };

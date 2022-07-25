@@ -13,12 +13,6 @@
         { "timestamp_registro": { "_lte": "2022-07-08 10:52:18.588" } }
       ]
     },
-    {
-      "_and": [
-        {},
-        { "registro": { "_contains": { "air": true } } },
-        { "registro": { "_contains": { "airQuality": true } } }
-      ]
-    }
+    { "_and": [{}, { "registro": { "_contains": { "unit": "°c" } } }] }
   ]
 }

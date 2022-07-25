@@ -1,35 +1,50 @@
 import Ajv from "ajv";
+const ajv = new Ajv();
 
-const mayorIgual = (valor: number) => {};
+export const filtrarPorEtiquetaValue = (
+  data: any,
+  filtro: string,
+  valor: any
+) => {
+  const { registro } = data;
+  const { value } = registro;
 
-const menorIgual = (valor: number) => {};
-
-const mayor = (valor: number) => {};
-
-const menor = (valor: number) => {};
-
-const igualdad = (valor: number | string) => {
-  if (typeof valor === "string") {
-  } else {
-  }
+  if (filtro === ">=") return value >= Number(valor);
+  else if (filtro === ">") return value > Number(valor);
+  else if (filtro === "<") return value < Number(valor);
+  else if (filtro === "<=") return value <= Number(valor);
+  else if (filtro === "=") return value === Number(valor);
 };
 
-const condiciones = {
-  ">=": mayorIgual,
-  ">": mayor,
-  "<=": menorIgual,
-  "<": menor,
-  "=": igualdad,
+export const separarEtiquetaValue = (bodyRequest: any) => {
+  const { filtroPorEtiquetas } = bodyRequest;
+  const { etiquetas } = filtroPorEtiquetas ?? {};
+  const nuevosTagsDeFiltro: any = [];
+  let valueFilter: any;
+  etiquetas?.map((etiqueta: any) => {
+    if (etiqueta.nombreEtiqueta !== "value") nuevosTagsDeFiltro.push(etiqueta);
+    else valueFilter = etiqueta;
+  });
+
+  bodyRequest["filtroPorEtiquetas"]["etiquetas"] = nuevosTagsDeFiltro;
+
+  return valueFilter;
 };
+
+export function validarJSON(objetoAValidar: any, schema: any): Result {
+  const validate = ajv.compile(schema);
+  const esValido = validate(objetoAValidar);
+
+  const result: Result = {
+    valido: esValido,
+    errorMsg: validate.errors ?? "",
+  };
+
+  return result;
+}
 
 export const traducirQuery = (queryParams: QuerySensorData) => {
-  const {
-    pointsIds,
-    sitesIds,
-    equipsIds,
-    intervaloTimestamp,
-    filtroPorEtiquetas,
-  } = queryParams;
+  const { pointsIds, intervaloTimestamp, filtroPorEtiquetas } = queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
   const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
 
@@ -54,21 +69,6 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         ],
       },
     ],
-
-    // registro:
-    //   !!etiquetas && etiquetas.length > 0
-    //     ? incluirTodos
-    //       ? {
-    //           _has_keys_all: etiquetas?.map(
-    //             (etiqueta) => etiqueta.nombreEtiqueta
-    //           ),
-    //         }
-    //       : {
-    //           _has_keys_any: etiquetas?.map(
-    //             (etiqueta) => etiqueta.nombreEtiqueta
-    //           ),
-    //         }
-    //     : {},
   };
 
   if (etiquetas && etiquetas.length > 0) {
@@ -77,25 +77,22 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         ...where["_and"],
         {
           _and: etiquetas?.map((etiqueta) => {
-            if (etiqueta.nombreEtiqueta !== "value") {
-              let valor: any = etiqueta.valor;
-              if (etiqueta.valor) {
-                valor = String(etiqueta.valor).toLowerCase();
-                if (valor === "true") {
-                  valor = true;
-                } else if (valor === "false") {
-                  valor = false;
-                }
-              } else {
+            let valor: any = etiqueta.valor;
+            if (etiqueta.valor) {
+              valor = String(etiqueta.valor);
+              if (valor.toLowerCase() === "true") {
                 valor = true;
+              } else if (valor.toLowerCase() === "false") {
+                valor = false;
               }
-              return {
-                registro: {
-                  _contains: { [etiqueta.nombreEtiqueta]: valor },
-                },
-              };
+            } else {
+              valor = true;
             }
-            return {};
+            return {
+              registro: {
+                _contains: { [etiqueta.nombreEtiqueta]: valor },
+              },
+            };
           }),
         },
       ];
@@ -104,53 +101,26 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         ...where["_and"],
         {
           _or: etiquetas?.map((etiqueta) => {
-            if (etiqueta.nombreEtiqueta !== "value") {
-              let valor: any = etiqueta.valor;
-              if (etiqueta.valor) {
-                valor = String(etiqueta.valor).toLowerCase();
-                if (valor === "true") {
-                  valor = true;
-                } else if (valor === "false") {
-                  valor = false;
-                }
-              } else {
+            let valor: any = etiqueta.valor;
+            if (etiqueta.valor) {
+              valor = String(etiqueta.valor);
+              if (valor.toLowerCase() === "true") {
                 valor = true;
+              } else if (valor.toLowerCase() === "false") {
+                valor = false;
               }
-              return {
-                registro: {
-                  _contains: { [etiqueta.nombreEtiqueta]: valor },
-                },
-              };
+            } else {
+              valor = true;
             }
-            return {};
+            return {
+              registro: {
+                _contains: { [etiqueta.nombreEtiqueta]: valor },
+              },
+            };
           }),
         },
       ];
     }
   }
-
   return where;
 };
-
-const ajv = new Ajv({ allErrors: true });
-
-// Ajv option allErrors is required
-require("ajv-errors")(ajv /*, {singleError: true} */);
-
-interface Result {
-  valido: boolean;
-  errorMsg: any;
-}
-
-export function validarJSON(objetoAValidar: any, schema: any): Result {
-  const validate = ajv.compile(schema);
-
-  const esValido = validate(objetoAValidar);
-
-  const result: Result = {
-    valido: esValido,
-    errorMsg: validate.errors ?? "",
-  };
-
-  return result;
-}

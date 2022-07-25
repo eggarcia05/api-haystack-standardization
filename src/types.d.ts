@@ -31,3 +31,8 @@ interface OrderCondition {
   orden: string;
   parametroParaOrdenar: string;
 }
+
+interface Result {
+  valido: boolean;
+  errorMsg: any;
+}

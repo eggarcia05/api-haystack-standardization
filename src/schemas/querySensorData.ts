@@ -46,9 +46,10 @@ const etiquetas = {
       },
       condicion: {
         type: "string",
+        enum: [">", ">=", "<", "<=", "="],
       },
       valor: {
-        type: ["number", "string", 'boolean'],
+        type: ["number", "string", "boolean"],
       },
     },
     required: ["nombreEtiqueta"],
@@ -80,35 +81,11 @@ const ordenarPor = {
 
 export const esquemaQuerySensorData = {
   type: "object",
-  oneOf: [
-    {
-      properties: {
-        pointsIds,
-        intervaloTimestamp,
-        filtroPorEtiquetas,
-        ordenarPor,
-      },
-      required: ["pointsIds"],
-    },
-    {
-      properties: {
-        sitesIds,
-        intervaloTimestamp,
-        filtroPorEtiquetas,
-        ordenarPor,
-      },
-      required: ["sitesIds"],
-    },
-    {
-      properties: {
-        equipsIds,
-        intervaloTimestamp,
-        filtroPorEtiquetas,
-        ordenarPor,
-      },
-      required: ["equipsIds"],
-    },
-  ],
-  errorMessage:
-    "Only one of entities Ids: sitesIds or pointsIds or equipsIds is allowed",
+  properties: {
+    pointsIds,
+    intervaloTimestamp,
+    filtroPorEtiquetas,
+    ordenarPor,
+  },
+  required: ["pointsIds"],
 };
