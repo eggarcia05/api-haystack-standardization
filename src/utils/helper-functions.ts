@@ -23,10 +23,15 @@ const condiciones = {
 };
 
 export const traducirQuery = (queryParams: QuerySensorData) => {
-  const { pointsIds, intervaloTimestamp, filtroPorEtiquetas } = queryParams;
+  const {
+    pointsIds,
+    sitesIds,
+    equipsIds,
+    intervaloTimestamp,
+    filtroPorEtiquetas,
+  } = queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
   const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
-
 
   const where = {
     _or:
@@ -41,20 +46,32 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         : {},
       timestampFinal ? { timestamp_registro: { _lte: timestampFinal } } : {},
     ],
-    registro: !!etiquetas && etiquetas.length > 0 
-      ? incluirTodos 
-        ? { _has_keys_all: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta) }
-        : {
-            _has_keys_any: etiquetas?.map((etiqueta) => etiqueta.nombreEtiqueta),
-        }
-      : { },
+    registro:
+      !!etiquetas && etiquetas.length > 0
+        ? incluirTodos
+          ? {
+              _has_keys_all: etiquetas?.map(
+                (etiqueta) => etiqueta.nombreEtiqueta
+              ),
+            }
+          : {
+              _has_keys_any: etiquetas?.map(
+                (etiqueta) => etiqueta.nombreEtiqueta
+              ),
+            }
+        : {},
   };
   console.log(JSON.stringify(where));
 
   return where;
 };
 
-const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+const ajv = new Ajv({ allErrors: true });
+
+// Ajv option allErrors is required
+require("ajv-errors")(ajv /*, {singleError: true} */);
+
+
 
 interface Result {
   valido: boolean;

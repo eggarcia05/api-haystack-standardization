@@ -80,17 +80,35 @@ const ordenarPor = {
 
 export const esquemaQuerySensorData = {
   type: "object",
-  properties: {
-    pointsIds,
-    equipsIds,
-    sitesIds,
-    intervaloTimestamp,
-    filtroPorEtiquetas,
-    ordenarPor,
-  },
-  anyOf: [
-    { required: ["pointsIds"] },
-    { required: ["equipsIds"] },
-    { required: ["sitesIds"] },
+  oneOf: [
+    {
+      properties: {
+        pointsIds,
+        intervaloTimestamp,
+        filtroPorEtiquetas,
+        ordenarPor,
+      },
+      required: ["pointsIds"],
+    },
+    {
+      properties: {
+        sitesIds,
+        intervaloTimestamp,
+        filtroPorEtiquetas,
+        ordenarPor,
+      },
+      required: ["sitesIds"],
+    },
+    {
+      properties: {
+        equipsIds,
+        intervaloTimestamp,
+        filtroPorEtiquetas,
+        ordenarPor,
+      },
+      required: ["equipsIds"],
+    },
   ],
+  errorMessage:
+    "Only one of entities Ids: sitesIds or pointsIds or equipsIds is allowed",
 };
