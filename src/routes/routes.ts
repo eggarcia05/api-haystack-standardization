@@ -13,7 +13,7 @@ router.get("/", async (request: Request, response: Response) => {
   });
 });
 
-router.post("/registrar-datos", validarBodyRequest, registrarDatosDeSensor);
-router.post("/obtener-datos", validarBodyRequest, (req, res) => res.send(200));
+router.post("/registrar-datos",validarBodyRequest, registrarDatosDeSensor);
+router.post("/obtener-datos", validarBodyRequest, obtenerDatosDeSensor);
 
 export default router;

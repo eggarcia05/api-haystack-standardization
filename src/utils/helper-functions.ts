@@ -33,35 +33,101 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
   const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
 
-  const where = {
-    _or:
-      pointsIds && pointsIds.length > 0
-        ? pointsIds.map((pointId) => {
-            return { point_id: { _eq: pointId } };
-          })
-        : {},
+  let where: any = {
     _and: [
-      timestampInicial
-        ? { timestamp_registro: { _gte: timestampInicial } }
-        : {},
-      timestampFinal ? { timestamp_registro: { _lte: timestampFinal } } : {},
+      {
+        _or:
+          pointsIds && pointsIds.length > 0
+            ? pointsIds.map((pointId) => {
+                return { point_id: { _eq: pointId } };
+              })
+            : {},
+      },
+      {
+        _and: [
+          timestampInicial
+            ? { timestamp_registro: { _gte: timestampInicial } }
+            : {},
+          timestampFinal
+            ? { timestamp_registro: { _lte: timestampFinal } }
+            : {},
+        ],
+      },
     ],
-    registro:
-      !!etiquetas && etiquetas.length > 0
-        ? incluirTodos
-          ? {
-              _has_keys_all: etiquetas?.map(
-                (etiqueta) => etiqueta.nombreEtiqueta
-              ),
-            }
-          : {
-              _has_keys_any: etiquetas?.map(
-                (etiqueta) => etiqueta.nombreEtiqueta
-              ),
-            }
-        : {},
+
+    // registro:
+    //   !!etiquetas && etiquetas.length > 0
+    //     ? incluirTodos
+    //       ? {
+    //           _has_keys_all: etiquetas?.map(
+    //             (etiqueta) => etiqueta.nombreEtiqueta
+    //           ),
+    //         }
+    //       : {
+    //           _has_keys_any: etiquetas?.map(
+    //             (etiqueta) => etiqueta.nombreEtiqueta
+    //           ),
+    //         }
+    //     : {},
   };
-  console.log(JSON.stringify(where));
+
+  if (etiquetas && etiquetas.length > 0) {
+    if (incluirTodos == true) {
+      where["_and"] = [
+        ...where["_and"],
+        {
+          _and: etiquetas?.map((etiqueta) => {
+            if (etiqueta.nombreEtiqueta !== "value") {
+              let valor: any = etiqueta.valor;
+              if (etiqueta.valor) {
+                valor = String(etiqueta.valor).toLowerCase();
+                if (valor === "true") {
+                  valor = true;
+                } else if (valor === "false") {
+                  valor = false;
+                }
+              } else {
+                valor = true;
+              }
+              return {
+                registro: {
+                  _contains: { [etiqueta.nombreEtiqueta]: valor },
+                },
+              };
+            }
+            return {};
+          }),
+        },
+      ];
+    } else {
+      where["_and"] = [
+        ...where["_and"],
+        {
+          _or: etiquetas?.map((etiqueta) => {
+            if (etiqueta.nombreEtiqueta !== "value") {
+              let valor: any = etiqueta.valor;
+              if (etiqueta.valor) {
+                valor = String(etiqueta.valor).toLowerCase();
+                if (valor === "true") {
+                  valor = true;
+                } else if (valor === "false") {
+                  valor = false;
+                }
+              } else {
+                valor = true;
+              }
+              return {
+                registro: {
+                  _contains: { [etiqueta.nombreEtiqueta]: valor },
+                },
+              };
+            }
+            return {};
+          }),
+        },
+      ];
+    }
+  }
 
   return where;
 };
@@ -70,8 +136,6 @@ const ajv = new Ajv({ allErrors: true });
 
 // Ajv option allErrors is required
 require("ajv-errors")(ajv /*, {singleError: true} */);
-
-
 
 interface Result {
   valido: boolean;

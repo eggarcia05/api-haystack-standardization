@@ -1,0 +1,24 @@
+{
+  "_and": [
+    {
+      "_or": [
+        { "point_id": { "_eq": "c437e697-a19d-4d1a-98be-594b8dc5ac64" } },
+        { "point_id": { "_eq": "27803f1a-5bfd-4a3c-8d1e-b1e4faf3aa7f" } },
+        { "point_id": { "_eq": "c83c8acd-f058-4402-b267-2f9aaab30204" } }
+      ]
+    },
+    {
+      "_and": [
+        { "timestamp_registro": { "_gte": "2022-07-08 10:51:50.443" } },
+        { "timestamp_registro": { "_lte": "2022-07-08 10:52:18.588" } }
+      ]
+    },
+    {
+      "_and": [
+        {},
+        { "registro": { "_contains": { "air": true } } },
+        { "registro": { "_contains": { "airQuality": true } } }
+      ]
+    }
+  ]
+}

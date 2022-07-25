@@ -48,7 +48,7 @@ const etiquetas = {
         type: "string",
       },
       valor: {
-        type: ["number", "string"],
+        type: ["number", "string", 'boolean'],
       },
     },
     required: ["nombreEtiqueta"],

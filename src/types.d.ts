@@ -19,8 +19,8 @@ interface PeriodoTiempo {
 
 interface CamposEtiqueta {
   nombreEtiqueta: string;
-  condicicioDeFiltro?: string;
-  valorAComparar?: string | number | boolean;
+  condicion?: string;
+  valor?: string | number | boolean;
 }
 interface FiltroEtiquetas {
   etiquetas: CamposEtiqueta[];
