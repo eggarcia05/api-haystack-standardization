@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import routes from "./routes/routes";
-import server from "./websocket";
+import serverSocket from "./websocket";
 
 const app = express();
 require("dotenv").config();
@@ -14,6 +14,7 @@ app.use(function (err: any, req: Request, res: Response, next: any) {
 
 // settings
 app.set("port", process.env.PORT || 8081);
+app.set("portSocket", process.env.PORT_SOCKET || 8082);
 
 // middlewares
 app.use(express.urlencoded({ extended: false }));
@@ -22,12 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", routes);
 
-//socket 
-server.listen(8082, () => {
-  console.log("Running at localhost:8082");
+//socket
+serverSocket.listen(app.get("portSocket"), () => {
+  console.log(`Socket Server on port ${app.get("portSocket")}`);
 });
 
 // starting the server
 app.listen(app.get("port"), () => {
-  console.log(`server on port ${app.get("port")}`);
+  console.log(`Api Server on port ${app.get("port")}`);
 });

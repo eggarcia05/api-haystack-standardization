@@ -1,8 +1,10 @@
+import { esquemaInsertSensorData } from "../schemas/insertSensorData";
 import { esquemaQuerySensorData } from "../schemas/querySensorData";
 import { validarJSON } from "../utils/helper-functions";
 
 const esquemas: any = {
   "/obtener-datos": esquemaQuerySensorData,
+  "/registrar-datos": esquemaInsertSensorData
 };
 
 export const validarBodyRequest = async (

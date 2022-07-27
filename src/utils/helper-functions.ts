@@ -1,5 +1,7 @@
 import Ajv from "ajv";
-const ajv = new Ajv();
+const ajv = new Ajv({
+  allowMatchingProperties: true,
+});
 
 export const filtrarPorEtiquetaValue = (
   data: any,
