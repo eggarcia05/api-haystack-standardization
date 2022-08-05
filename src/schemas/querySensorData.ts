@@ -72,6 +72,7 @@ const ordenarPor = {
   properties: {
     orden: {
       type: "string",
+      enum: ["asc" , "desc"],
     },
     parametro: {
       type: "string",
@@ -87,5 +88,6 @@ export const esquemaQuerySensorData = {
     filtroPorEtiquetas,
     ordenarPor,
   },
-  required: ["pointsIds"],
+  additionalProperties: false,
+  anyOf: [{ required: ["pointsIds"] }, { required: ["filtroPorEtiquetas"] }],
 };

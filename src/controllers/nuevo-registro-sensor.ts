@@ -15,7 +15,7 @@ export const registrarDatosDeSensor = async (
   for (let clave_esperada of clavesEsperadas) {
     let query: string = "point";
     let variables: any = {
-      id,
+      equipRef_id: id,
       clave_esperada,
     };
 

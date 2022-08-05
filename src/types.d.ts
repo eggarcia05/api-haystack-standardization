@@ -5,8 +5,6 @@ interface NewSensorPayload {
 
 interface QuerySensorData {
   pointsIds: string[];
-  equipsIds: string[];
-  sitesIds: string[];
   intervaloTimestamp?: PeriodoTiempo;
   filtroPorEtiquetas?: FiltroEtiquetas;
   ordenarPor?: OrderCondition;

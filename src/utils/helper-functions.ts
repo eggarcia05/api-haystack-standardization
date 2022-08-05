@@ -27,6 +27,8 @@ export const separarEtiquetaValue = (bodyRequest: any) => {
     if (etiqueta.nombreEtiqueta !== "value") nuevosTagsDeFiltro.push(etiqueta);
     else valueFilter = etiqueta;
   });
+  console.log(bodyRequest);
+  
 
   bodyRequest["filtroPorEtiquetas"]["etiquetas"] = nuevosTagsDeFiltro;
 
@@ -46,7 +48,8 @@ export function validarJSON(objetoAValidar: any, schema: any): Result {
 }
 
 export const traducirQuery = (queryParams: QuerySensorData) => {
-  const { pointsIds, intervaloTimestamp, filtroPorEtiquetas } = queryParams;
+  const { pointsIds, intervaloTimestamp, filtroPorEtiquetas, ordenarPor } =
+    queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
   const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
 
@@ -88,8 +91,16 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
                 valor = false;
               }
             } else {
-              valor = true;
+              valor = etiqueta.valor;
             }
+            console.log(
+              {
+                registro: {
+                  _contains: { [etiqueta.nombreEtiqueta]: valor },
+                }
+              }
+            );
+
             return {
               registro: {
                 _contains: { [etiqueta.nombreEtiqueta]: valor },
@@ -112,8 +123,14 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
                 valor = false;
               }
             } else {
-              valor = true;
+              valor = etiqueta.valor;
             }
+            console.log({
+              registro: {
+                _contains: { [etiqueta.nombreEtiqueta]: valor },
+              },
+            }); 
+            
             return {
               registro: {
                 _contains: { [etiqueta.nombreEtiqueta]: valor },
@@ -124,5 +141,11 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
       ];
     }
   }
-  return where;
+
+  let order_by = ordenarPor; 
+
+  console.log(where);
+  
+
+  return {where, order_by};
 };

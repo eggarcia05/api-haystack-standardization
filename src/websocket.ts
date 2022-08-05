@@ -10,7 +10,11 @@ function timeout(ms: number) {
 }
 
 const serverSocket = http.createServer(app);
-const io = new socketio.Server(serverSocket);
+const io = new socketio.Server(serverSocket, {
+  cors: {
+    origin: "*",
+  },
+});
 
 io.on("connection", async (socket) => {
   const periodTime: number = <any>socket.handshake.query?.periodTime ?? 15000;

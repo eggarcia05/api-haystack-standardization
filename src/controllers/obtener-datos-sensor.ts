@@ -14,11 +14,11 @@ export const obtenerDatosDeSensor = async (
   const bodyRequest: QuerySensorData = req.body;
 
   const valueFilter = separarEtiquetaValue(bodyRequest);
-  const where = traducirFiltroQuery(bodyRequest);
+  const {where, order_by} = traducirFiltroQuery(bodyRequest);
 
   const query = "GET_REGISTRO_SENSORES";
   const variables = {
-    where,
+    where, order_by
   };
 
   const { status, body } = await fetchQuery(query, variables);
