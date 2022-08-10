@@ -80,6 +80,10 @@ const ordenarPor = {
   },
 };
 
+const limite = {
+  type: "number",
+};
+
 export const esquemaQuerySensorData = {
   type: "object",
   properties: {
@@ -87,6 +91,7 @@ export const esquemaQuerySensorData = {
     intervaloTimestamp,
     filtroPorEtiquetas,
     ordenarPor,
+    limite,
   },
   additionalProperties: false,
   anyOf: [{ required: ["pointsIds"] }, { required: ["filtroPorEtiquetas"] }],

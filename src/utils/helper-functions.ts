@@ -27,8 +27,6 @@ export const separarEtiquetaValue = (bodyRequest: any) => {
     if (etiqueta.nombreEtiqueta !== "value") nuevosTagsDeFiltro.push(etiqueta);
     else valueFilter = etiqueta;
   });
-  console.log(bodyRequest);
-  
 
   bodyRequest["filtroPorEtiquetas"]["etiquetas"] = nuevosTagsDeFiltro;
 
@@ -48,8 +46,13 @@ export function validarJSON(objetoAValidar: any, schema: any): Result {
 }
 
 export const traducirQuery = (queryParams: QuerySensorData) => {
-  const { pointsIds, intervaloTimestamp, filtroPorEtiquetas, ordenarPor } =
-    queryParams;
+  const {
+    pointsIds,
+    intervaloTimestamp,
+    filtroPorEtiquetas,
+    ordenarPor,
+    limite: limit,
+  } = queryParams;
   const { timestampInicial, timestampFinal } = intervaloTimestamp ?? {};
   const { incluirTodos, etiquetas } = filtroPorEtiquetas ?? {};
 
@@ -93,13 +96,6 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
             } else {
               valor = etiqueta.valor;
             }
-            console.log(
-              {
-                registro: {
-                  _contains: { [etiqueta.nombreEtiqueta]: valor },
-                }
-              }
-            );
 
             return {
               registro: {
@@ -125,12 +121,7 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
             } else {
               valor = etiqueta.valor;
             }
-            console.log({
-              registro: {
-                _contains: { [etiqueta.nombreEtiqueta]: valor },
-              },
-            }); 
-            
+
             return {
               registro: {
                 _contains: { [etiqueta.nombreEtiqueta]: valor },
@@ -142,10 +133,7 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
     }
   }
 
-  let order_by = ordenarPor; 
-
-  console.log(where);
-  
-
-  return {where, order_by};
+  const queryTraducido = { where, order_by: ordenarPor, limit };
+  console.log(JSON.stringify(queryTraducido));
+  return queryTraducido;
 };

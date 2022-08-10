@@ -8,6 +8,7 @@ interface QuerySensorData {
   intervaloTimestamp?: PeriodoTiempo;
   filtroPorEtiquetas?: FiltroEtiquetas;
   ordenarPor?: OrderCondition;
+  limite?: number
 }
 
 interface PeriodoTiempo {

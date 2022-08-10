@@ -20,7 +20,6 @@ io.on("connection", async (socket) => {
   const periodTime: number = <any>socket.handshake.query?.periodTime ?? 15000;
   const limit: number = Number(<any>socket.handshake.query?.limit ?? 5);
   const pointId: string = <any>socket.handshake.query?.pointId ?? undefined;
-  console.log(!!!pointId);
 
   if (!!!pointId) {
     socket.emit("error_msg", "pointId es un parámetro query requerido");
