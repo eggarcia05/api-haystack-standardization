@@ -134,6 +134,9 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
   }
 
   const queryTraducido = { where, order_by: ordenarPor, limit };
-  console.log(JSON.stringify(queryTraducido));
+
   return queryTraducido;
 };
+
+
+
