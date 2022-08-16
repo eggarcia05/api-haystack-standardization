@@ -8,6 +8,7 @@ export const point = gql`
       id
       siteRef
       equipRef
+      tags
 
     }
   }
