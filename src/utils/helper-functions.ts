@@ -138,5 +138,20 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
   return queryTraducido;
 };
 
-
-
+export const wheresObj: any = {
+  pointWhere: (refId: string) => {
+    return {
+      where: {
+        _or: [{ siteRef: { _eq: refId } }, { equipRef: { _eq: refId } }],
+      },
+    };
+  },
+  equipWhere: (refId: string) => {
+    return {
+      where: {
+        _or: [{ siteRef: { _eq: refId } }],
+      },
+    };
+  },
+  siteWhere: (refId?: string) => { return {}},
+};
