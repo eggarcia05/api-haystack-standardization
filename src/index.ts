@@ -2,10 +2,14 @@ import express, { Request, Response, NextFunction } from "express";
 import routes from "./routes/routes";
 import serverSocket from "./websocket";
 
+import swaggerUi from "swagger-ui-express";
+import { index } from "./swagger-docs/api-docs";
+
 const app = express();
 require("dotenv").config();
 
-// importing routes
+app.use("/docs", swaggerUi.serve);
+app.get("/docs", swaggerUi.setup(index));
 
 // errors
 app.use(function (err: any, req: Request, res: Response, next: any) {
