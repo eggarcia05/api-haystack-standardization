@@ -1,3 +1,7 @@
+import { esquemaInsertSensorData } from "../schemas/insertSensorData";
+import { esquemaQueryEntidad } from "../schemas/queryEntidad";
+import { esquemaQuerySensorData } from "../schemas/querySensorData";
+
 export const index = {
   swagger: "2.0",
   info: {
@@ -34,59 +38,77 @@ export const index = {
           "Mediante esta ruta se puede añadir un nueva lectura de uno o más sesnores de un modulo IoT",
         operationId: "createUser",
         consumes: ["application/json"],
-        produces: ["application/json", "application/xml"],
+        produces: ["application/json"],
         parameters: [
           {
             in: "body",
             name: "body",
             description: "Created user object",
             required: true,
-            schema: { $ref: "#/definitions/User" },
+            schema: { $ref: "#/definitions/esquemaInsertSensorData" },
           },
         ],
-        responses: { default: { description: "successful operation" } },
+        responses: {
+          200: {
+            description: "Registro Exitoso de Lectura",
+            schema: { $ref: "#/definitions/ApiResponse" },
+          },
+        },
       },
     },
     "/obtener-entidades": {
       post: {
         tags: ["Consultas"],
-        summary: "Registrar lecturas de modulo IoT",
+        summary: "Obtener información de las Entidades Registradas",
         description:
-          "Mediante esta ruta se puede añadir un nueva lectura de uno o más sesnores de un modulo IoT",
+          "Mediante esta ruta pueden obtenerse los sitios, equiposo o puntos registrados, si se desea filtrar por entidad padre, puede agregar un identificador de referencia ",
         operationId: "createUser",
         consumes: ["application/json"],
-        produces: ["application/json", "application/xml"],
+        produces: ["application/json"],
         parameters: [
           {
             in: "body",
             name: "body",
-            description: "Created user object",
+            description: "Objeto de solicitud",
             required: true,
-            schema: { $ref: "#/definitions/User" },
+            schema: { $ref: "#/definitions/esquemaQueryEntidad" },
           },
         ],
-        responses: { default: { description: "successful operation" } },
+        responses: {
+          200: {
+            description: "Consulta exitosa",
+          },
+        },
       },
     },
     "/obtener-datos": {
       post: {
         tags: ["Consultas"],
-        summary: "Registrar lecturas de modulo IoT",
+        externalDocs: {
+          description: "Github Repository",
+          url: "http://swagger.io",
+        },
+        summary:
+          "Obtener datos de serie de tiempo de los módulos/sensores registrados",
         description:
-          "Mediante esta ruta se puede añadir un nueva lectura de uno o más sesnores de un modulo IoT",
-        operationId: "createUser",
+          "Mediante esta ruta se puedn obtenerse las lecturas de los puntos, puede filtrarse por entidad padre, etiqueta, rango de fechas ",
+        operationId: "obtenerDatos",
         consumes: ["application/json"],
-        produces: ["application/json", "application/xml"],
+        produces: ["application/json"],
         parameters: [
           {
             in: "body",
             name: "body",
-            description: "Created user object",
+            description: "Objeto de solicitud",
             required: true,
-            schema: { $ref: "#/definitions/User" },
+            schema: { $ref: "#/definitions/esquemaQuerySensorData" },
           },
         ],
-        responses: { default: { description: "successful operation" } },
+        responses: {
+          200: {
+            description: "Consulta exitosa",
+          },
+        },
       },
     },
   },
@@ -111,81 +133,24 @@ export const index = {
         message: { type: "string" },
       },
     },
-    Category: {
+    esquemaInsertSensorData: {
       type: "object",
       properties: {
-        id: { type: "integer", format: "int64" },
-        name: { type: "string" },
-      },
-      xml: { name: "Category" },
-    },
-    Pet: {
-      type: "object",
-      required: ["name", "photoUrls"],
-      properties: {
-        id: { type: "integer", format: "int64" },
-        category: { $ref: "#/definitions/Category" },
-        name: { type: "string", example: "doggie" },
-        photoUrls: {
-          type: "array",
-          xml: { wrapped: true },
-          items: { type: "string", xml: { name: "photoUrl" } },
-        },
-        tags: {
-          type: "array",
-          xml: { wrapped: true },
-          items: { xml: { name: "tag" }, $ref: "#/definitions/Tag" },
-        },
-        status: {
+        id: {
           type: "string",
-          description: "pet status in the store",
-          enum: ["available", "pending", "sold"],
+        },
+        "[parameter_value: string]": {
+          type: "string | number",
         },
       },
-      xml: { name: "Pet" },
-    },
-    Tag: {
-      type: "object",
-      properties: {
-        id: { type: "integer", format: "int64" },
-        name: { type: "string" },
+      patternProperties: {
+        "^.*$": { type: ["string", "number", "boolean"] },
       },
-      xml: { name: "Tag" },
+      required: ["id"],
+      additionalProperties: false,
     },
-    Order: {
-      type: "object",
-      properties: {
-        id: { type: "integer", format: "int64" },
-        petId: { type: "integer", format: "int64" },
-        quantity: { type: "integer", format: "int32" },
-        shipDate: { type: "string", format: "date-time" },
-        status: {
-          type: "string",
-          description: "Order Status",
-          enum: ["placed", "approved", "delivered"],
-        },
-        complete: { type: "boolean" },
-      },
-      xml: { name: "Order" },
-    },
-    User: {
-      type: "object",
-      properties: {
-        id: { type: "integer", format: "int64" },
-        username: { type: "string" },
-        firstName: { type: "string" },
-        lastName: { type: "string" },
-        email: { type: "string" },
-        password: { type: "string" },
-        phone: { type: "string" },
-        userStatus: {
-          type: "integer",
-          format: "int32",
-          description: "User Status",
-        },
-      },
-      xml: { name: "User" },
-    },
+    esquemaQueryEntidad,
+    esquemaQuerySensorData,
   },
   externalDocs: {
     description: "Github Repository",

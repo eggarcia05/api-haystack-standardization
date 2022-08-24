@@ -9,5 +9,7 @@ export const esquemaInsertSensorData = {
     "^.*$": { type: ["string", "number", "boolean"] },
   },
   required: ["id"],
-  additionalProperties: false 
+  additionalProperties: true 
 };
+
+
