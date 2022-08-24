@@ -4,9 +4,9 @@ import { esquemaQuerySensorData } from "../schemas/querySensorData";
 import { validarJSON } from "../utils/helper-functions";
 
 const esquemas: any = {
-  "/obtener-datos": esquemaQuerySensorData,
-  "/registrar-datos": esquemaInsertSensorData,
-  "/obtener-entidades": esquemaQueryEntidad
+  "/v1/obtener-datos": esquemaQuerySensorData,
+  "/v1/registrar-datos": esquemaInsertSensorData,
+  "/v1/obtener-entidades": esquemaQueryEntidad,
 };
 
 export const validarBodyRequest = async (
@@ -15,8 +15,9 @@ export const validarBodyRequest = async (
   next: any
 ): Promise<any> => {
   const bodyObject = req.body;
-    const { valido, errorMsg } = validarJSON(bodyObject, esquemas[req.path]);
-    
+  const { valido, errorMsg } = validarJSON(bodyObject, esquemas[req.path]);
+  console.log("🚀 ~ file: validador-esquema.ts ~ line 19 ~ valido, errorMsg", valido, errorMsg)
+
   if (!valido) {
     return res.status(400).send({ errorMsg });
   }

@@ -16,6 +16,7 @@ export const fetchQuery = async (query: string, variables: any) => {
 
     return { status: 200, body: data };
   } catch (error) {
+    console.log("🚀 ~ file: query-apollo.ts ~ line 19 ~ fetchQuery ~ error)", error)
     return {
       status: 400,
       body: error,

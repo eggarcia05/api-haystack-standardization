@@ -21,6 +21,8 @@ export const obtenerDatosDeSensor = async (
     where, order_by, limit
   };
 
+  
+
   const { status, body } = await fetchQuery(query, variables);
   const { registros_sensores } = body;
 

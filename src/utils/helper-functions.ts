@@ -20,7 +20,7 @@ export const filtrarPorEtiquetaValue = (
 
 export const separarEtiquetaValue = (bodyRequest: any) => {
   const { filtroPorEtiquetas } = bodyRequest;
-  const { etiquetas } = filtroPorEtiquetas ?? {};
+  const { etiquetas } = filtroPorEtiquetas ?? [];
   const nuevosTagsDeFiltro: any = [];
   let valueFilter: any;
   etiquetas?.map((etiqueta: any) => {
@@ -28,8 +28,8 @@ export const separarEtiquetaValue = (bodyRequest: any) => {
     else valueFilter = etiqueta;
   });
 
-  bodyRequest["filtroPorEtiquetas"]["etiquetas"] = nuevosTagsDeFiltro;
-
+  bodyRequest["filtroPorEtiquetas"] = bodyRequest["filtroPorEtiquetas"] ?? {};
+  bodyRequest["filtroPorEtiquetas"]["etiquetas"] = [];
   return valueFilter;
 };
 
@@ -153,5 +153,7 @@ export const wheresObj: any = {
       },
     };
   },
-  siteWhere: (refId?: string) => { return {}},
+  siteWhere: (refId?: string) => {
+    return {};
+  },
 };

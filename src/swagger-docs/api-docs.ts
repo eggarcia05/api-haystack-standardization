@@ -30,7 +30,7 @@ export const index = {
   ],
   schemes: ["http"],
   paths: {
-    "/registrar-datos": {
+    "/v1/registrar-datos": {
       post: {
         tags: ["Registros"],
         summary: "Registrar lecturas de modulo IoT",
@@ -51,12 +51,18 @@ export const index = {
         responses: {
           200: {
             description: "Registro Exitoso de Lectura",
-            schema: { $ref: "#/definitions/ApiResponse" },
+            schema: { $ref: "#/definitions/insertarDatoApiSuccess" },
+          },
+          400: {
+            description: "Solicitud equivocada",
+            schema: {
+              $ref: "#/definitions/insertarDatoApiError",
+            },
           },
         },
       },
     },
-    "/obtener-entidades": {
+    "/v1/obtener-entidades": {
       post: {
         tags: ["Consultas"],
         summary: "Obtener información de las Entidades Registradas",
@@ -81,11 +87,11 @@ export const index = {
         },
       },
     },
-    "/obtener-datos": {
+    "/v1/obtener-datos": {
       post: {
         tags: ["Consultas"],
         externalDocs: {
-          description: "Github Repository",
+          description: "Schema additional information",
           url: "http://swagger.io",
         },
         summary:
@@ -125,13 +131,73 @@ export const index = {
   //   },
   // },
   definitions: {
-    ApiResponse: {
+    insertarDatoApiError: {
       type: "object",
       properties: {
-        code: { type: "integer", format: "int32" },
-        type: { type: "string" },
-        message: { type: "string" },
+        errorMsg: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              instancePath: {
+                type: "string",
+              },
+              schemaPath: {
+                type: "string",
+              },
+              keyword: {
+                type: "string",
+              },
+              params: {
+                type: "object",
+                properties: {
+                  type: {
+                    type: "array",
+                    items: [
+                      {
+                        type: "string",
+                      },
+                      {
+                        type: "string",
+                      },
+                      {
+                        type: "string",
+                      },
+                    ],
+                  },
+                },
+                required: ["type"],
+              },
+              message: {
+                type: "string",
+              },
+            },
+            required: [
+              "instancePath",
+              "schemaPath",
+              "keyword",
+              "params",
+              "message",
+            ],
+          },
+        },
       },
+      required: ["errorMsg"],
+    },
+    insertarDatoApiSuccess: {
+      type: "object",
+      properties: {
+        msg: {
+          type: "object",
+          properties: {
+            "any-property": {
+              type: "boolean",
+            },
+          },
+          required: ["any-property"],
+        },
+      },
+      required: ["msg"],
     },
     esquemaInsertSensorData: {
       type: "object",

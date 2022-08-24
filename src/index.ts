@@ -17,8 +17,8 @@ app.use(function (err: any, req: Request, res: Response, next: any) {
 });
 
 // settings
-app.set("port", process.env.PORT || 8081);
-app.set("portSocket", process.env.PORT_SOCKET || 8082);
+app.set("port", process.env.PORT || 8082);
+app.set("portSocket", process.env.PORT_SOCKET || 8081);
 
 // middlewares
 app.use(express.urlencoded({ extended: false }));

@@ -5,8 +5,6 @@ import {
 } from "@apollo/client/core/core.cjs";
 
 import { HttpLink } from 'apollo-link-http';
-import { split } from 'apollo-link';
-import { getMainDefinition } from 'apollo-utilities';
 import fetch from "node-fetch";
 import { setAuthorization } from "./links/auth";
 
@@ -19,18 +17,7 @@ const httpLink = new HttpLink({
   fetch
 });
 
-// Create a WebSocket link:
-
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const { kind, operation } = <any>getMainDefinition(query);
-    return kind === "OperationDefinition" && operation === "subscription";
-  },
-  httpLink
-  );
-  
-  const links = () => new ApolloLink.from([setAuthorization(), link]);
+  const links = () => new ApolloLink.from([setAuthorization(), httpLink]);
 const cache = new InMemoryCache();
 
 export const client = new ApolloClient({
