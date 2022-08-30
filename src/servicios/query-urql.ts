@@ -18,7 +18,7 @@ export const fetchQuery = async (
         body: error,
       };
 
-    return { body: data };
+    return { status: 200, body: data };
     // return result;
   } catch (error) {
     return {

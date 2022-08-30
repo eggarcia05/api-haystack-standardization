@@ -25,6 +25,9 @@ export const obtenerDatosDeSensor = async (
 
   const { status, body } = await fetchQuery(query, variables);
   const { registros_sensores } = body;
+  console.log(query, variables);
+  console.log(body);
+
 
   let newResultadoFiltradoPorValor = [];
 
