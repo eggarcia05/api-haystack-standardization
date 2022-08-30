@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { fetchQuery } from "../servicios/query-apollo";
+import { fetchQuery } from "../servicios/query-urql";
 import {
   filtrarPorEtiquetaValue,
   separarEtiquetaValue,

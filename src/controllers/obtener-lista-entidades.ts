@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fetchQuery } from "../servicios/query-apollo";
+import { fetchQuery } from "../servicios/query-urql";
 import { wheresObj } from "../utils/helper-functions";
 
 export const obtenerEntidades = async (req: Request, res: Response) => {

@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client/core/core.cjs";
+import { gql } from "@urql/core";
 
 export const insert_registros_sensores = gql`
   mutation registrarValorPunto($point_id: String, $registro: jsonb) {

@@ -1,15 +1,12 @@
-import { gql } from "@apollo/client/core/core.cjs";
+import { gql } from "@urql/core";
 
 export const point = gql`
   query point($where: point_bool_exp = {}) {
-    point(
-      where: $where
-    ) {
+    point(where: $where) {
       id
       siteRef
       equipRef
       tags
-
     }
   }
 `;
@@ -41,5 +38,3 @@ export const site = gql`
     }
   }
 `;
-
-

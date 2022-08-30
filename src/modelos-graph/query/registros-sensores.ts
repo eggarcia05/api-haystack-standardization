@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client/core/core.cjs";
+import { gql } from "@urql/core";
 
 export const GET_REGISTRO_SENSORES = gql`
   query query(

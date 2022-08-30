@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { fetchMutation } from "../servicios/mutation-apollo";
-import { fetchQuery } from "../servicios/query-apollo";
+import { fetchMutation } from "../servicios/mutation-urql";
+import { fetchQuery } from "../servicios/query-urql";
 
 export const registrarDatosDeSensor = async (
   req: Request,
@@ -15,11 +15,13 @@ export const registrarDatosDeSensor = async (
   for (let clave_esperada of clavesEsperadas) {
     let query: string = "point";
     let variables: any = {
-      equipRef_id: id,
-      clave_esperada,
+      where: {
+        equipRef: { _eq: id },
+        clave_esperada: { _eq: clave_esperada },
+      },
     };
 
-    const { status: statusQuery, body } = await fetchQuery(query, variables);
+    const { status: statusQuery, body} = await fetchQuery(query, variables);
     const { point } = body ?? [];
 
     if (statusQuery === 200 && point.length > 0) {

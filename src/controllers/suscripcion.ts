@@ -1,4 +1,4 @@
-import { fetchQuery } from "../servicios/query-apollo";
+import { fetchQuery } from "../servicios/query-urql";
 
 export const getRealtimeSensorData = async (pointId: string, limit: number) => {
 

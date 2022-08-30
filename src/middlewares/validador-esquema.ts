@@ -16,7 +16,6 @@ export const validarBodyRequest = async (
 ): Promise<any> => {
   const bodyObject = req.body;
   const { valido, errorMsg } = validarJSON(bodyObject, esquemas[req.path]);
-  console.log("🚀 ~ file: validador-esquema.ts ~ line 19 ~ valido, errorMsg", valido, errorMsg)
 
   if (!valido) {
     return res.status(400).send({ errorMsg });
