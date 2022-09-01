@@ -1,5 +1,4 @@
 import Ajv from "ajv";
-import { json } from "express";
 const ajv = new Ajv({
   allowMatchingProperties: true,
 });
@@ -86,7 +85,7 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
         ...where["_and"],
         {
           _and: etiquetas?.map((etiqueta) => {
-            let valor: any = etiqueta.valor;
+            let valor: any = true;
             if (etiqueta.valor) {
               valor = String(etiqueta.valor);
               if (valor.toLowerCase() === "true") {
@@ -94,8 +93,6 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
               } else if (valor.toLowerCase() === "false") {
                 valor = false;
               }
-            } else {
-              valor = etiqueta.valor;
             }
 
             return {
@@ -135,7 +132,7 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
   }
 
   // if (etiquetas?.length)
-    const queryTraducido = { where, order_by: ordenarPor, limit };
+  const queryTraducido = { where, order_by: ordenarPor, limit };
 
   return queryTraducido;
 };

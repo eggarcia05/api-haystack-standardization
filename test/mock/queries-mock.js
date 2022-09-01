@@ -70,6 +70,43 @@ const querySensorSinPointConFiltroTraducidoOutnput = {
   limit: 10,
 };
 
+const querySensorIncluirTodoElFiltroInput = {
+  pointsIds: [],
+  filtroPorEtiquetas: {
+    etiquetas: [
+      {
+        nombreEtiqueta: "equipRef",
+        valor: "dd85475c-a5ef-4a15-b00f-206e408528b2",
+      },
+      {
+        nombreEtiqueta: "humidity",
+      },
+    ],
+    incluirTodos: true,
+  },
+  limite: 10,
+};
+
+const querySensorIncluirTodoElFiltroTraducidoOutnput = {
+  where: {
+    _and: [
+      { _or: {} },
+      { _and: [{}, {}] },
+      {
+        _and: [
+          {
+            registro: {
+              _contains: { equipRef: "dd85475c-a5ef-4a15-b00f-206e408528b2" },
+            },
+          },
+          { registro: { _contains: { humidity: true } } },
+        ],
+      },
+    ],
+  },
+  limit: 10,
+};
+
 const querySensorIntervaloConSensorInput = {
   pointsIds: ["c437e697-a19d-4d1a-98be-594b8dc5ac64"],
   intervaloTimestamp: {
@@ -99,7 +136,8 @@ export const inputsQuery = {
   querySensorUniquePointInput,
   querySensorUniquePointLimitInput,
   querySensorSinPointConFiltroInput,
-  querySensorIntervaloConSensorInput
+  querySensorIntervaloConSensorInput,
+  querySensorIncluirTodoElFiltroInput,
 };
 
 export const outputsQuery = {
@@ -107,4 +145,5 @@ export const outputsQuery = {
   querySensorUniquePointLimitTraducidoOutput,
   querySensorSinPointConFiltroTraducidoOutnput,
   querySensorIntervaloConSensorTraducidoOutput,
+  querySensorIncluirTodoElFiltroTraducidoOutnput,
 };

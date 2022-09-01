@@ -35,3 +35,13 @@ test("traducir_query_dentro_de_intervalo_con_sensor", () => {
     JSON.stringify(outputsQuery.querySensorIntervaloConSensorTraducidoOutput)
   );
 });
+
+test("traducir_query_incluyendo_todos_los_filtros", () => {
+  const inputTraducido = traducirQuery(
+    inputsQuery.querySensorIncluirTodoElFiltroInput
+  );
+  expect(JSON.stringify(inputTraducido)).eq(
+    JSON.stringify(outputsQuery.querySensorIncluirTodoElFiltroTraducidoOutnput)
+  );
+});
+
