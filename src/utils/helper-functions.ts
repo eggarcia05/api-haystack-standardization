@@ -1,4 +1,5 @@
 import Ajv from "ajv";
+import { json } from "express";
 const ajv = new Ajv({
   allowMatchingProperties: true,
 });
@@ -29,7 +30,7 @@ export const separarEtiquetaValue = (bodyRequest: any) => {
   });
 
   bodyRequest["filtroPorEtiquetas"] = bodyRequest["filtroPorEtiquetas"] ?? {};
-  bodyRequest["filtroPorEtiquetas"]["etiquetas"] = [];
+  bodyRequest["filtroPorEtiquetas"]["etiquetas"] = nuevosTagsDeFiltro;
   return valueFilter;
 };
 
@@ -133,7 +134,8 @@ export const traducirQuery = (queryParams: QuerySensorData) => {
     }
   }
 
-  const queryTraducido = { where, order_by: ordenarPor, limit };
+  // if (etiquetas?.length)
+    const queryTraducido = { where, order_by: ordenarPor, limit };
 
   return queryTraducido;
 };

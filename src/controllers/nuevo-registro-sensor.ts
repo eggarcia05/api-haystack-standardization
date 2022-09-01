@@ -8,6 +8,7 @@ export const registrarDatosDeSensor = async (
   next: NextFunction
 ) => {
   const { id, ...rest }: NewSensorPayload = req.body;
+  
   const clavesEsperadas = Object.keys(rest);
 
   const result: any = {};
@@ -23,7 +24,7 @@ export const registrarDatosDeSensor = async (
 
     const { status: statusQuery, body } = await fetchQuery(query, variables);
     const { point } = body ?? [];
-    console.log("POINT: ", point);
+  console.log(variables);
 
     if (statusQuery === 200 && point.length > 0) {
       const { tags, id: pointId } = point?.[0] ?? {};
@@ -37,7 +38,6 @@ export const registrarDatosDeSensor = async (
 
       const { status: statusMutation, body: bodyMutationResult } =
         await fetchMutation(query, variables);
-    console.log("body mut: ", statusMutation,bodyMutationResult);
 
       result[clave_esperada] = !!bodyMutationResult;
     } else [(result[clave_esperada] = false)];

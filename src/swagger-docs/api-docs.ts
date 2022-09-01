@@ -83,6 +83,9 @@ export const index = {
         responses: {
           200: {
             description: "Consulta exitosa",
+            schema: {
+              $ref: "#/definitions/queryEntidadSuccess",
+            },
           },
         },
       },
@@ -113,6 +116,9 @@ export const index = {
         responses: {
           200: {
             description: "Consulta exitosa",
+            schema: {
+              $ref: "#/definitions/querySensorDataApiSucces",
+            },
           },
         },
       },
@@ -210,13 +216,126 @@ export const index = {
         },
       },
       patternProperties: {
-        "^.*$": { type: ["string", "number", "boolean"] },
+        "^.*$": {
+          anyOf: [{ type: "string" }, { type: "number" }, { type: "boolean" }],
+        },
       },
       required: ["id"],
       additionalProperties: false,
     },
     esquemaQueryEntidad,
+    queryEntidadSuccess: {
+      type: "object",
+      properties: {
+        response: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: {
+                type: "string",
+              },
+              siteRef: {
+                type: "string",
+              },
+              equipRef: {
+                type: "string",
+              },
+              tags: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                  air: {
+                    type: "boolean",
+                  },
+                  dis: {
+                    type: "string",
+                  },
+                  kind: {
+                    type: "string",
+                  },
+                  unit: {
+                    type: "string",
+                  },
+                  siteRef: {
+                    type: "string",
+                  },
+                  equipRef: {
+                    type: "string",
+                  },
+                  humidity: {
+                    type: "boolean",
+                  },
+                },
+              },
+              __typename: {
+                type: "string",
+                enum: ["point"],
+              },
+            },
+            required: ["id", "siteRef", "equipRef", "tags", "__typename"],
+          },
+        },
+      },
+      required: ["status", "response"],
+    },
     esquemaQuerySensorData,
+    querySensorDataApiSucces: {
+      $schema: "http://json-schema.org/draft-04/schema#",
+      type: "object",
+      properties: {
+        response: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              point_id: {
+                type: "string",
+              },
+              timestamp_registro: {
+                type: "string",
+              },
+              registro: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                  dis: {
+                    type: "string",
+                  },
+                  elec: {
+                    type: "boolean",
+                  },
+                  kind: {
+                    type: "string",
+                  },
+                  unit: {
+                    type: "string",
+                  },
+                  volt: {
+                    type: "boolean",
+                  },
+                  value: {
+                    anyOf: [{ type: "string" }, { type: "integer" }],
+                  },
+                  siteRef: {
+                    type: "string",
+                  },
+                  equipRef: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            required: ["point_id", "timestamp_registro", "registro"],
+          },
+        },
+      },
+      required: ["response"],
+    },
   },
   externalDocs: {
     description: "Github Repository",

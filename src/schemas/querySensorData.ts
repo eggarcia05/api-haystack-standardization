@@ -49,7 +49,7 @@ const etiquetas = {
         enum: [">", ">=", "<", "<=", "="],
       },
       valor: {
-        type: ["number", "string", "boolean"],
+        anyOf: [{ type: "string" }, { type: "number" }, { type: "boolean" }],
       },
     },
     required: ["nombreEtiqueta"],
