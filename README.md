@@ -52,7 +52,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 </details>
 
-</br>
 
 ## Obtener Lectura de sensores
 
