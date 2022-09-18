@@ -42,7 +42,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     http://localhost:8081/v1
 
 <details>
-  <summary>Response</summary>
+  <summary>Response Ejemplo</summary>
 
 ```json
 {
@@ -61,7 +61,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     http://localhost:8082/v1/obtener-datos
 
 <details>
-  <summary>Request Body</summary>
+  <summary>Request Ejemplo</summary>
 
 ```json
 {
@@ -94,7 +94,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 </br>
 
-### Detalle
+### Estructura de Body
 
 </br>
 
@@ -183,7 +183,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 
 #### <div id="ordenarPor">**Tipo: OrdenarPor**</div>
-
 <table>
     <tr>
         <td>Parámetro</td>
@@ -229,7 +228,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 </br>
 
 <details>
-  <summary>Response</summary>
+  <summary>Response Ejemplo</summary>
 
 ```json
 {
@@ -274,70 +273,119 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 ## Obtener Entidades
 
-### Request
 
 `POST /v1/obtener-entidades`
 
     http://localhost:8082/v1/obtener-entidades
 
 <details>
-  <summary>Response</summary>
+  <summary>Request Ejemplo</summary>
+
+```json
+{
+  "tipo": "point",
+  "entidadRefId": "dd85475c-a5ef-4a15-b00f-206e408528b2"
+}
+```
+
+</details>
+
+<br>
+### Estructura de Body
+
+</br>
+
+<table>
+    <tr>
+        <td>Parámetro</td>
+        <td>Tipo</td>
+        <td>Descripción</td>
+    </tr>
+    <tr>
+        <td>tipo</td>
+        <td>String</td>
+        <td>Define el tipo de entidad que desea obtener en la consulta. Puede tomar los valores de equip, point, site. Requerido</td>
+    </tr>
+    <tr>
+        <td>entidadRefId</td>
+        <td> String</a></td>
+        <td>Si necesita obtener solo las entidades hijas que están contenidas en una entidad padre en específica, en este parámetro podrá especificar el id de la entidad padre</td>
+    </tr>
+</table>
+
+---
+
+<details>
+  <summary>Response Ejemplo</summary>
 
 ```json
 {
     "status": 200,
     "response": [
         {
-            "id": "dd85475c-a5ef-4a15-b00f-206e408528b2",
-            "dis": "Modulo de medición de datos ambientales",
+            "id": "c437e697-a19d-4d1a-98be-594b8dc5ac64",
             "siteRef": "lab_sistemas_telematicos",
-            "points": [
-                {
-                    "id": "c437e697-a19d-4d1a-98be-594b8dc5ac64",
-                    "__typename": "point"
-                },
-                {
-                    "id": "27803f1a-5bfd-4a3c-8d1e-b1e4faf3aa7f",
-                    "__typename": "point"
-                },
-                {
-                    "id": "c83c8acd-f058-4402-b267-2f9aaab30204",
-                    "__typename": "point"
-                },
-                {
-                    "id": "rm4mini",
-                    "__typename": "point"
-                }
-            ],
-            "__typename": "equip"
+            "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+            "tags": {
+                "id": "c437e697-a19d-4d1a-98be-594b8dc5ac64",
+                "air": true,
+                "dis": "Humedad",
+                "kind": "number",
+                "unit": "%RH",
+                "siteRef": "lab_sistemas_telematicos",
+                "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+                "humidity": true
+            },
+            "__typename": "point"
         },
         {
-            "id": "shellyem-B9E151",
-            "dis": "Medidor de consumo eléctrico",
+            "id": "27803f1a-5bfd-4a3c-8d1e-b1e4faf3aa7f",
             "siteRef": "lab_sistemas_telematicos",
-            "points": [
-                {
-                    "id": "73928686-16ea-4163-8fce-ce1de21a9243",
-                    "__typename": "point"
-                },
-                {
-                    "id": "7f977aec-492e-4a0f-b62b-fd2234864d3f",
-                    "__typename": "point"
-                },
-                {
-                    "id": "36d39ebd-519d-40d2-8839-609b7133edf3",
-                    "__typename": "point"
-                },
-                {
-                    "id": "c9b088bd-6ed4-4963-a8f8-8b44a0fbe139",
-                    "__typename": "point"
-                },
-                {
-                    "id": "1625a3e1-a79c-45da-8a62-9ae1e27d2d51",
-                    "__typename": "point"
-                }
-            ],
-            "__typename": "equip"
+            "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+            "tags": {
+                "id": "27803f1a-5bfd-4a3c-8d1e-b1e4faf3aa7f",
+                "air": true,
+                "dis": "Temperatura",
+                "kind": "number",
+                "unit": "°C",
+                "siteRef": "lab_sistemas_telematicos",
+                "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+                "temperature": true
+            },
+            "__typename": "point"
+        },
+        {
+            "id": "c83c8acd-f058-4402-b267-2f9aaab30204",
+            "siteRef": "lab_sistemas_telematicos",
+            "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+            "tags": {
+                "id": "c83c8acd-f058-4402-b267-2f9aaab30204",
+                "air": true,
+                "dis": "Concentración de CO2",
+                "kind": "number",
+                "unit": "ppm",
+                "siteRef": "lab_sistemas_telematicos",
+                "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+                "airQuality": true,
+                "clave_esperada": "a"
+            },
+            "__typename": "point"
+        },
+        {
+            "id": "rm4mini",
+            "siteRef": "lab_sistemas_telematicos",
+            "equipRef": "dd85475c-a5ef-4a15-b00f-206e408528b2",
+            "tags": {
+                "id": "rm4mini",
+                "dis": "Actuador de Acondicionador de aire",
+                "run": true,
+                "kind": "string",
+                "temp": true,
+                "unit": "",
+                "siteRef": "lab_sistemas_telematicos",
+                "actuator": true
+            },
+            "__typename": "point"
         }
     ]
 }
@@ -354,7 +402,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     http://localhost:8081/v1/registrar-datos
 
 <details>
-  <summary>Response</summary>
+  <summary>Response Ejemplo</summary>
 
 ```json
 {
