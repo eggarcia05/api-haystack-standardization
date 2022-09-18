@@ -133,11 +133,9 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 ---
 
-<br>
 
 #### <div id="intervalotimestamp">**Tipo: IntervaloTimestamp**</div>
 
-<br>
 <table>
     <tr>
         <td>Parámetro</td>
