@@ -33,7 +33,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 - [Pago Factura Cliente](https://github.com/Grupo-Viteri/apiOdoo/blob/master/src/mock-data/datosPagoDeFactura.json) -->
 
-> ## Rutas Api
+## Rutas Api
 
 ## Index
 
@@ -267,7 +267,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 </details>
 
-</br>
 
 ## Obtener Entidades
 
@@ -287,8 +286,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 ```
 
 </details>
-
-<br>
 
 ### Estructura de Body
 
