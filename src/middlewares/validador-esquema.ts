@@ -14,6 +14,7 @@ export const validarBodyRequest = async (
   res: any,
   next: any
 ): Promise<any> => {
+
   const bodyObject = req.body;
   const { valido, errorMsg } = validarJSON(bodyObject, esquemas[req.path]);
 

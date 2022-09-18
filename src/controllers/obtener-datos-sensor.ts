@@ -12,6 +12,7 @@ export const obtenerDatosDeSensor = async (
   next: NextFunction
 ) => {
   const bodyRequest: QuerySensorData = req.body;
+  console.log("OK");
 
   const valueFilter = separarEtiquetaValue(bodyRequest);
   const {where, order_by, limit} = traducirFiltroQuery(bodyRequest);
@@ -24,6 +25,7 @@ export const obtenerDatosDeSensor = async (
   
 
   const { status, body } = await fetchQuery(query, variables);
+  console.log("🚀 ~ file: obtener-datos-sensor.ts ~ line 28 ~ body", body)
   const { registros_sensores } = body;
 
   let newResultadoFiltradoPorValor = [];

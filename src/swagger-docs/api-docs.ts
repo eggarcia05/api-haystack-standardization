@@ -6,17 +6,13 @@ export const index = {
   swagger: "2.0",
   info: {
     description:
-      "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    version: "1.0.6",
-    title: "Swagger Petstore",
+      "Documentaciónd de Api de Estandarización. Tu puedes obtener más información en la el repositorio de [Github](https://github.com/eggarcia05/api-haystack-standardization)",
+    version: "1.0.0",
+    title: "Documentación Swagger API Estandarización ",
     termsOfService: "http://swagger.io/terms/",
-    contact: { email: "apiteam@swagger.io" },
-    license: {
-      name: "Apache 2.0",
-      url: "http://www.apache.org/licenses/LICENSE-2.0.html",
-    },
+    contact: { email: "eggarcia@espol.edu.ec" },
   },
-  host: "localhost:8081",
+  host: "localhost:8082",
   basePath: "/v1",
   tags: [
     {
@@ -339,6 +335,6 @@ export const index = {
   },
   externalDocs: {
     description: "Github Repository",
-    url: "http://swagger.io",
+    url: "https://github.com/eggarcia05/api-haystack-standardization",
   },
 };

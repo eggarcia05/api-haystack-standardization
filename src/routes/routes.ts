@@ -9,6 +9,7 @@ const router = Router();
 router.use(cors());
 
 router.get("/v1/", async (request: Request, response: Response) => {
+
   response.status(200).send({
     descripción: "API - Esstandarización de Sistemas IoT",
   });
