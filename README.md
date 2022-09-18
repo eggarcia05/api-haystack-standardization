@@ -92,7 +92,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 </details>
 
-</br>
 
 ### Estructura de Body
 
@@ -291,6 +290,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 </details>
 
 <br>
+
 ### Estructura de Body
 
 </br>
@@ -392,6 +392,8 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 ```
 
 </details>
+
+</br>
 
 ## Insertar Lectura
 
