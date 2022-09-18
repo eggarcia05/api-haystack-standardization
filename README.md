@@ -105,17 +105,17 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>pointsIds</td>
         <td>Int[]</td>
-        <td>Lista de IDs de puntos (sensores o actuadores) de los cuales se desea obtener los datos. Es Requerido si intervaloTimestamp o filtroPorEtiquetas no existe.</td>
+        <td>Lista de IDs de puntos (sensores o actuadores) de los cuales se desea obtener los datos. Es <strong>Requerido</strong> si intervaloTimestamp o filtroPorEtiquetas no existe.</td>
     </tr>
     <tr>
         <td>intervaloTimestamp</td>
         <td> <a href="#intervalotimestamp">IntervaloTimestamp</a></td>
-        <td>Permite filtrar las lecturas por rango de tiempo. Es Requerido solo si poinsIds y filtroPorEtiqueta no están definidos</td>
+        <td>Permite filtrar las lecturas por rango de tiempo. Es <strong>Requerido</strong> solo si poinsIds y filtroPorEtiqueta no están definidos</td>
     </tr>
     <tr>
         <td>filtroPorEtiquetas</td>
         <td><a href="#filtroPorEtiquetas">FiltroPorEtiquetas</div></td>
-        <td>Permite definir un arreglo con las etiquetas por las que se desea filtrar la búsqueda. Es Requerido si pointsIds y intervaloTimestamp no están definidos</td>
+        <td>Permite definir un arreglo con las etiquetas por las que se desea filtrar la búsqueda. Es <strong>Requerido</strong> si pointsIds y intervaloTimestamp no están definidos</td>
     </tr>
     <tr>
         <td>ordenarPor</td>
@@ -129,8 +129,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     </tr>
 </table>
 
----
-
 
 #### <div id="intervalotimestamp">**Tipo: IntervaloTimestamp**</div>
 
@@ -143,17 +141,15 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>timestampInicial</td>
         <td>String</td>
-        <td>Filtro de fecha de inicio con el formato "YYYY-MM-DD". Requerido solo sí timestampFinal no se se define timestampFinal.</td>
+        <td>Filtro de fecha de inicio con el formato "YYYY-MM-DD". <strong>Requerido</strong> solo sí timestampFinal no se se define timestampFinal.</td>
     </tr>
     <tr>
         <td>timestampFinal</td>
         <td>String</td>
-        <td>Filtro de fecha de final con el formato "YYYY-MM-DD". Requerido solo sí timestampInicial no se se define timestampFinal.</td>
+        <td>Filtro de fecha de final con el formato "YYYY-MM-DD". <strong>Requerido</strong> solo sí timestampInicial no se se define timestampFinal.</td>
     </tr>
 </table>
 
-
----
 
 
 #### <div id="filtroPorEtiquetas">**Tipo: FiltroPorEtiquetas**</div>
@@ -177,8 +173,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     </tr>
 </table>
 
----
-
 
 #### <div id="ordenarPor">**Tipo: OrdenarPor**</div>
 <table>
@@ -195,7 +189,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>parametro</td>
         <td>String</td>
-        <td>Este puede ser cualquier etiqueta o parametro por el que desee ordenar los datos. Requerido.</td>
+        <td>Este puede ser cualquier etiqueta o parametro por el que desee ordenar los datos. <strong>Requerido</strong>.</td>
     </tr>
 </table>
 
@@ -210,7 +204,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>nombreEtiqueta</td>
         <td>String</td>
-        <td>Nombre de la etiqueta sobre la que realizará un filtro. Ej: value, siteRef, equipRef, etc. Requerido</td>
+        <td>Nombre de la etiqueta sobre la que realizará un filtro. Ej: value, siteRef, equipRef, etc. <strong>Requerido</strong></td>
     </tr>
     <tr>
         <td>condicion</td>
@@ -220,7 +214,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>valor</td>
         <td>Numeric | String | Boolean</td>
-        <td>Valor que debe cumplir la condición de filtro. Requerido</td>
+        <td>Valor que debe cumplir la condición de filtro. <strong>Requerido</strong></td>
     </tr>
 </table>
 </br>
@@ -300,7 +294,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>tipo</td>
         <td>String</td>
-        <td>Define el tipo de entidad que desea obtener en la consulta. Puede tomar los valores de equip, point, site. Requerido</td>
+        <td>Define el tipo de entidad que desea obtener en la consulta. Puede tomar los valores de equip, point, site. <strong>Requerido</strong></td>
     </tr>
     <tr>
         <td>entidadRefId</td>
@@ -309,7 +303,6 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     </tr>
 </table>
 
----
 
 <details>
   <summary>Response Ejemplo</summary>
@@ -389,15 +382,50 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 </details>
 
-</br>
 
 ## Insertar Lectura
 
-### Request
 
 `POST /v1/registrar-datos`
 
     http://localhost:8081/v1/registrar-datos
+
+<details>
+  <summary>Request Ejemplo</summary>
+
+```json
+{
+    "id": "shellyem-B9E151",
+    "total": "66363.5",
+    "power": "146.45",
+    "voltage": "210"
+}
+```
+
+</details>
+
+### Estructura de Body
+
+</br>
+
+<table>
+    <tr>
+        <td>Parámetro</td>
+        <td>Tipo</td>
+        <td>Descripción</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>identificador del punto que registrará la lectura</td>
+    </tr>
+    <tr>
+        <td>[parametro_lectura]</td>
+        <td> String</a></td>
+        <td>La llave de este parametro dependerá del sensor que envíe la lectura, y puede ser más de uno. Cada uno de los parámetros enviados por cada sensor deberán ser específicados en el <a href="https://github.com/eggarcia05/iot-module-registration-interface">SRMIoT</a> <strong>Requerido</strong></td>
+    </tr>
+</table>
+
 
 <details>
   <summary>Response Ejemplo</summary>
