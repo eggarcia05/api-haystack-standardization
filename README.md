@@ -159,11 +159,10 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 
 ---
 
-<br>
 
 #### <div id="filtroPorEtiquetas">**Tipo: FiltroPorEtiquetas**</div>
 
-<br>
+
 <table>
     <tr>
         <td>Parámetro</td>
@@ -185,11 +184,8 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
 ---
 
 
-<br>
-
 #### <div id="ordenarPor">**Tipo: OrdenarPor**</div>
 
-<br>
 <table>
     <tr>
         <td>Parámetro</td>
@@ -207,11 +203,9 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
         <td>Este puede ser cualquier etiqueta o parametro por el que desee ordenar los datos. Requerido.</td>
     </tr>
 </table>
-</br>
 
 #### <div id="etiquetas">**Tipo: Etiquetas**</div>
 
-<br>
 <table>
     <tr>
         <td>Parámetro</td>
