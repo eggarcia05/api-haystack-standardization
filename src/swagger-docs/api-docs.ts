@@ -13,7 +13,7 @@ export const index = {
     contact: { email: "eggarcia@espol.edu.ec" },
   },
   host: "localhost:8082",
-  basePath: "/v1",
+  basePath: "/",
   tags: [
     {
       name: "Registros",
