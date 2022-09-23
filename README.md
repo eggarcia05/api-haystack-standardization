@@ -104,7 +104,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     </tr>
     <tr>
         <td>pointsIds</td>
-        <td>Int[]</td>
+        <td>string[]</td>
         <td>Lista de IDs de puntos (sensores o actuadores) de los cuales se desea obtener los datos. Es <strong>Requerido</strong> si intervaloTimestamp o filtroPorEtiquetas no existe.</td>
     </tr>
     <tr>
@@ -417,7 +417,7 @@ Api de Estandarización para facilitar el consumo de datos de equipos IoT.
     <tr>
         <td>id</td>
         <td>String</td>
-        <td>identificador del punto que registrará la lectura</td>
+        <td>identificador del punto que registrará la lectura. <strong>Requerido</strong></td>
     </tr>
     <tr>
         <td>[parametro_lectura]</td>
